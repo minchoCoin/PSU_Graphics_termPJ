@@ -283,6 +283,11 @@ MonoBehaviour:
   audioClipRun: {fileID: 8300000, guid: 0c58744c3b6fdd844b8348066c3f703e, type: 3}
   KeyCodeRun: 304
   KeyCodeJump: 32
+  KeyCodeToggleAuto: 98
+  weaponSetting:
+    attackSpeed: 0
+    attackDist: 0
+    isAuto: 0
 --- !u!114 &662488866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,7 +355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 5
-  runSpeed: 8
+  runSpeed: 15
   jumpPower: 10
   gravity: 30
 --- !u!114 &662488870
@@ -461,6 +466,53 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &694957632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 694957633}
+  - component: {fileID: 694957634}
+  m_Layer: 0
+  m_Name: BulletSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &694957633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694957632}
+  serializedVersion: 2
+  m_LocalRotation: {x: 1, y: -0, z: -0, w: -0.00000014901163}
+  m_LocalPosition: {x: 0.1055, y: -0.9881, z: 0.2819}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2013542037}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &694957634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694957632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7341338fd2b1ba54faafeef3dfa1312d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bullet: {fileID: 54704279786675872, guid: 5953171a59c27394e9ad5cbb564affa8, type: 3}
+  GunShot: {fileID: 8300000, guid: 38b450e2adcb6f542acc8c1d423bd8dc, type: 3}
+  BulletSpeed: 10
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,6 +723,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -752,6 +805,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 662488864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8addd526d2d34c4fa2ece27a9b63283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AimTexture: {fileID: 2800000, guid: 8c89ed5746a4faa48bb97701cc2f2e35, type: 3}
+  AimRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  aimSizeMultiplier: 0.1
+  red: 255
+  green: 255
+  blue: 255
+  alpha: 255
 --- !u!1 &1300963584
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,7 +889,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198bfbdbbc7bc76458538346a16842f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSetting:
+    attackSpeed: 10
+    attackDist: 10
+    isAuto: 1
   AC_TakeOutWeapon: {fileID: 8300000, guid: 2ae41e984ff1f3e4a840a1a46b6a8816, type: 3}
+  Bullet: {fileID: 7638351563807042022, guid: eddd5dbbd5cba0343953e804ef2e05c8, type: 3}
+  GunShot: {fileID: 8300000, guid: 38b450e2adcb6f542acc8c1d423bd8dc, type: 3}
+  BulletSpeed: 50
 --- !u!82 &1400981228
 AudioSource:
   m_ObjectHideFlags: 0
@@ -975,7 +1059,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 400014, guid: 182b7f11db452bc458d35a6c9eced06f, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 694957633}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100012, guid: 182b7f11db452bc458d35a6c9eced06f, type: 3}
       insertIndex: -1
@@ -1194,6 +1281,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818055035}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2013542037 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400014, guid: 182b7f11db452bc458d35a6c9eced06f, type: 3}
+  m_PrefabInstance: {fileID: 1577765761}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2026565329
 GameObject:
   m_ObjectHideFlags: 0

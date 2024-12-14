@@ -15,12 +15,18 @@ public class SC_PlayerControl : MonoBehaviour
     private KeyCode KeyCodeRun = KeyCode.LeftShift;
     [SerializeField]
     private KeyCode KeyCodeJump = KeyCode.Space;
+    [SerializeField]
+    private KeyCode KeyCodeToggleAuto = KeyCode.B;
+
+    [SerializeField]
+    private WeaponSetting weaponSetting;
 
     private SC_MouseControle rotateToMouse;
     private SC_PlayerMove moveKeyborad;
     private SC_Status status;
     private SC_PlayerAnimatorControler animatorControler;
     private AudioSource audioSC;
+    private SC_WeaponRifle weaponRifle;
    
 
 
@@ -31,6 +37,8 @@ public class SC_PlayerControl : MonoBehaviour
         status = GetComponent<SC_Status>();
         animatorControler = GetComponent<SC_PlayerAnimatorControler>();
         audioSC = GetComponent<AudioSource>();
+        weaponRifle = GetComponentInChildren<SC_WeaponRifle>();
+
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -43,6 +51,8 @@ public class SC_PlayerControl : MonoBehaviour
         UpdateMouseRotation();
         UpdateKeyboardMove();
         UpdateJump();
+        UpdateWeponAction();
+        UpdateWeaponModeToggle();
 
     }
 
@@ -62,21 +72,23 @@ public class SC_PlayerControl : MonoBehaviour
     {
         float x_keyboard = Input.GetAxis("Horizontal");
         float z_keyboard = Input.GetAxis("Vertical");
-
+ 
         if (x_keyboard != 0 || z_keyboard != 0)
         {
             bool isRun = false;
-            if (z_keyboard > 0) isRun = Input.GetKey(KeyCodeRun);
-
+            if (z_keyboard > 0 && !animatorControler.IsInState("fireRifle")) {
+                isRun = Input.GetKey(KeyCodeRun);
+            }
+         
             if (isRun)
             {
-                animatorControler.SetAnimeMoveSpeed = 1;
+                animatorControler.AnimeMoveSpeed = 1;
                 moveKeyborad.SetMoveSpeed = status.RunSpeed;
                 audioSC.clip = audioClipRun;
             }
             else
             {
-                animatorControler.SetAnimeMoveSpeed = 0.5f;
+                animatorControler.AnimeMoveSpeed = 0.5f;
                 moveKeyborad.SetMoveSpeed = status.WalkSpeed;
                 audioSC.clip = audioClipWalk;
             }
@@ -90,7 +102,7 @@ public class SC_PlayerControl : MonoBehaviour
         else
         {
             moveKeyborad.SetMoveSpeed = 0;
-            animatorControler.SetAnimeMoveSpeed = 0;
+            animatorControler.AnimeMoveSpeed = 0;
 
             if (audioSC.isPlaying)
             {
@@ -106,6 +118,28 @@ public class SC_PlayerControl : MonoBehaviour
         if (Input.GetKey(KeyCodeJump))
         {
             moveKeyborad.Jump();
+        }
+    }
+
+    private void UpdateWeponAction()
+    {
+        if (Input.GetMouseButtonDown(0))
+            weaponRifle.StartWeaponAction();
+        else if(Input.GetMouseButtonUp(0))
+            weaponRifle.StopWeaponAction();
+    }
+    private void UpdateWeaponModeToggle()
+    {
+        if (Input.GetKeyDown(KeyCodeToggleAuto)) // B 키가 눌렸을 때
+        {
+            if (weaponRifle != null)
+            {
+                weaponRifle.ChangeAuto(); // SC_WeaponRifle의 메서드 호출
+            }
+            else
+            {
+                Debug.LogError("WeaponRifle이 null입니다.");
+            }
         }
     }
 

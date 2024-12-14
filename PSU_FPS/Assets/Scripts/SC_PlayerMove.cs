@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(CharacterController))]
+
 public class SC_PlayerMove : MonoBehaviour
 {
 
