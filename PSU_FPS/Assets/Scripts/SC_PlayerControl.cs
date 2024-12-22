@@ -27,11 +27,7 @@ public class SC_PlayerControl : MonoBehaviour
     private SC_PlayerAnimatorControler animatorControler;
     private AudioSource audioSC;
     private SC_WeaponRifle weaponRifle;
-
-    public int MaxHp => status.MaxHp;
-    public int CurrentHp => status.CurrentHp;
-    public int MaxAmmo => weaponRifle.MaxAmmo;
-    public int CurrentAmmo => weaponRifle.CurrentAmmo;
+   
 
 
     void Awake()
@@ -132,7 +128,6 @@ public class SC_PlayerControl : MonoBehaviour
         else if(Input.GetMouseButtonUp(0))
             weaponRifle.StopWeaponAction();
     }
-
     private void UpdateWeaponModeToggle()
     {
         if (Input.GetKeyDown(KeyCodeToggleAuto)) // B 키가 눌렸을 때

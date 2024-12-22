@@ -24,9 +24,6 @@ public class SC_WeaponRifle : MonoBehaviour
     public float BulletSpeed; // 총알 속도
     private Transform bulletSpawnPoint; // 총알 발사 위치
 
-    public int MaxAmmo => weaponSetting.maxAmmo;
-    public int CurrentAmmo => weaponSetting.currentAmmo;
-
     private void PlaySound(AudioClip NewCips)
     {
         audioSC.Stop();
@@ -90,42 +87,35 @@ public class SC_WeaponRifle : MonoBehaviour
 
     public void OnAttack()
     {
-        if (weaponSetting.currentAmmo > 0)
+        if (Time.time -  lastAttackTime > 1/weaponSetting.attackSpeed)
         {
-            if (Time.time - lastAttackTime > 1 / weaponSetting.attackSpeed)
+            if (animatorControler.AnimeMoveSpeed > 0.5f) return;
+
+            lastAttackTime = Time.time;
+
+           
+            animatorControler.SetTrigger("IsAttack");
+          
+            animatorControler.PlayAnime("fireRifle",-1,0);
+
+
+            if (bulletSpawnPoint != null && Bullet != null)
             {
-                if (animatorControler.AnimeMoveSpeed > 0.5f) return;
+                //Debug.Log("총알 생성 성공");
+                Quaternion adjustedRotation = bulletSpawnPoint.rotation * Quaternion.Euler(90, 0, 0);
 
-                lastAttackTime = Time.time;
+                Rigidbody rb = Instantiate(Bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+                // 올바른 방향으로 발사
+                Vector3 shootDirection = bulletSpawnPoint.forward; // bulletSpawnPoint의 forward 방향
+                rb.velocity = shootDirection * BulletSpeed;
 
-                weaponSetting.currentAmmo -= 1;
-                animatorControler.SetTrigger("IsAttack");
-
-                animatorControler.PlayAnime("fireRifle", -1, 0);
-
-
-                if (bulletSpawnPoint != null && Bullet != null)
-                {
-                    //Debug.Log("총알 생성 성공");
-                    Quaternion adjustedRotation = bulletSpawnPoint.rotation * Quaternion.Euler(90, 0, 0);
-
-                    Rigidbody rb = Instantiate(Bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-                    // 올바른 방향으로 발사
-                    Vector3 shootDirection = bulletSpawnPoint.forward; // bulletSpawnPoint의 forward 방향
-                    rb.velocity = shootDirection * BulletSpeed;
-
-                    AudioSource.PlayClipAtPoint(GunShot, bulletSpawnPoint.position);
-                }
-                else
-                {
-                    // Debug.LogError($"총알 생성 실패: BulletSpawnPoint = {bulletSpawnPoint}, Bullet = {Bullet}");
-                }
-
+                AudioSource.PlayClipAtPoint(GunShot, bulletSpawnPoint.position);
             }
-        }
-        else
-        {
-            // Debog.LogError("탄창 부족");
+            else
+            {
+               // Debug.LogError($"총알 생성 실패: BulletSpawnPoint = {bulletSpawnPoint}, Bullet = {Bullet}");
+            }
+
         }
     }
 }
