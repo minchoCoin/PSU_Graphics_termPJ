@@ -30,7 +30,7 @@ public class SC_UI : MonoBehaviour
         if (gamePanel.activeSelf)
         {
             hpText.text = player.CurrentHp + " / " + player.MaxHp;
-            ammoText.text = player.CurrentAmmo + " / " + player.MaxAmmo;
+            ammoText.text = (player.IsAuto ? " Auto  " : " Single  ") + player.CurrentAmmo + " / " + player.MaxAmmo;
         }
     }
 

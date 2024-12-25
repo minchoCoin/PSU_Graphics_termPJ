@@ -9,11 +9,18 @@ public class SC_WeaponRifle : MonoBehaviour
     private WeaponSetting weaponSetting;
 
     private float lastAttackTime = 0;
+    private float lastReloadTime = 0;
+    private bool isReloading = false;
+  
 
 
     [Header("weapon Audio Clips")]
     [SerializeField]
     private AudioClip AC_TakeOutWeapon;
+
+    [Header("Muzzle flashs")]
+    [SerializeField]
+    private GameObject muzzleFlashEffect;
 
     private AudioSource audioSC;
     private SC_PlayerAnimatorControler animatorControler;
@@ -26,6 +33,7 @@ public class SC_WeaponRifle : MonoBehaviour
     private int BulletDamage = 20;
     public int MaxAmmo => weaponSetting.maxAmmo;
     public int CurrentAmmo => weaponSetting.currentAmmo;
+    public bool IsAuto => weaponSetting.isAuto;
 
     private void PlaySound(AudioClip NewCips)
     {
@@ -46,6 +54,7 @@ public class SC_WeaponRifle : MonoBehaviour
     private void OnEnable()
     {
         PlaySound(AC_TakeOutWeapon);
+        muzzleFlashEffect.SetActive(false);
     }
     void Update()
     {
@@ -84,12 +93,36 @@ public class SC_WeaponRifle : MonoBehaviour
     {
         // isAuto 값을 토글
         weaponSetting.isAuto = !weaponSetting.isAuto;
-        Debug.Log($"Weapon Auto Mode Toggled: {weaponSetting.isAuto}");
+       // Debug.Log($"Weapon Auto Mode Toggled: {weaponSetting.isAuto}");
     }
 
+    public void Reload()
+    {
+        if (isReloading) return; // 이미 재장전 중이면 실행하지 않음
+        if (weaponSetting.currentAmmo == weaponSetting.maxAmmo) return;
+
+        animatorControler.SetTrigger("Reload"); // 재장전 애니메이션 트리거
+        isReloading = true; // 재장전 상태 설정
+        lastReloadTime = Time.time; // 재장전 시작 시간 기록
+        StartCoroutine("OnReloadEffect"); // 재장전 코루틴 실행
+    }
+
+    private IEnumerator OnReloadEffect()
+    {
+       
+        // 애니메이션 대기 시간
+        yield return new WaitForSeconds(3f);
+
+        weaponSetting.currentAmmo = weaponSetting.maxAmmo;
+        isReloading = false;
+
+        Debug.Log("탄약 재장전 완료!");
+    }
 
     public void OnAttack()
     {
+        if (isReloading) return;
+
         if (weaponSetting.currentAmmo > 0)
         {
             if (Time.time - lastAttackTime > 1 / weaponSetting.attackSpeed)
@@ -102,6 +135,7 @@ public class SC_WeaponRifle : MonoBehaviour
                 animatorControler.SetTrigger("IsAttack");
 
                 animatorControler.PlayAnime("fireRifle", -1, 0);
+                StartCoroutine("OnMuzzleFlashEffect");
 
 
                 if (bulletSpawnPoint != null && Bullet != null)
@@ -137,7 +171,14 @@ public class SC_WeaponRifle : MonoBehaviour
         }
         else
         {
-            // Debog.LogError("탄창 부족");
+            Reload();
         }
+    }
+
+    private IEnumerator OnMuzzleFlashEffect()
+    {
+        muzzleFlashEffect.SetActive(true);
+        yield return new WaitForSeconds(1/(weaponSetting.attackSpeed)*0.3f);
+        muzzleFlashEffect.SetActive(false);
     }
 }

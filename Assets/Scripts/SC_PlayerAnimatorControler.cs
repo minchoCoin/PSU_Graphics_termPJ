@@ -16,6 +16,7 @@ public class SC_PlayerAnimatorControler : MonoBehaviour
 
     public float AnimeMoveSpeed
     {
+
         set => animator.SetFloat("PlayerSpeed", value);
         get => animator.GetFloat("PlayerSpeed");
     }
@@ -34,11 +35,20 @@ public class SC_PlayerAnimatorControler : MonoBehaviour
  
     public bool IsInState(string stateName)
     {
-        return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+        var isInState = animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+        Debug.Log($"Animator is in state '{stateName}': {isInState}");
+        return isInState;
     }
 
     public void PlayAnime(string stateName, int layer, float normalizedTime)
     {
         animator.Play(stateName, layer, normalizedTime);
     }
+
+    public void DebugAnimatorState()
+    {
+        var stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        Debug.Log($"Current Animator State: {stateInfo.fullPathHash}, PlayerSpeed: {AnimeMoveSpeed}");
+    }
+
 }

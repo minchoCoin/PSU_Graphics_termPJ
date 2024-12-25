@@ -33,6 +33,7 @@ public class SC_PlayerHP : MonoBehaviour
     {
         GetComponent<SC_PlayerControl>().enabled = false;
         GetComponent<SC_PlayerMove>().enabled = false;
+        gameObject.AddComponent<Animator>();
         GetComponentInChildren<Animator>().runtimeAnimatorController = deadcontroller;
     }
 

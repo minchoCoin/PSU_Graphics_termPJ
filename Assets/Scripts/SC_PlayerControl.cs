@@ -17,6 +17,8 @@ public class SC_PlayerControl : MonoBehaviour
     private KeyCode KeyCodeJump = KeyCode.Space;
     [SerializeField]
     private KeyCode KeyCodeToggleAuto = KeyCode.B;
+    [SerializeField]
+    private KeyCode KeyCodeReload = KeyCode.R;
 
     [SerializeField]
     private WeaponSetting weaponSetting;
@@ -32,6 +34,8 @@ public class SC_PlayerControl : MonoBehaviour
     public int CurrentHp => GetComponent<SC_PlayerHP>().HP;
     public int MaxAmmo => weaponRifle.MaxAmmo;
     public int CurrentAmmo => weaponRifle.CurrentAmmo;
+    public bool IsAuto => weaponRifle.IsAuto;
+
 
 
     void Awake()
@@ -57,6 +61,8 @@ public class SC_PlayerControl : MonoBehaviour
         UpdateJump();
         UpdateWeponAction();
         UpdateWeaponModeToggle();
+        UpdateReload();
+        animatorControler.DebugAnimatorState(); // 현재 상태 디버깅
 
     }
 
@@ -80,7 +86,7 @@ public class SC_PlayerControl : MonoBehaviour
         if (x_keyboard != 0 || z_keyboard != 0)
         {
             bool isRun = false;
-            if (z_keyboard > 0 && !animatorControler.IsInState("fireRifle")) {
+            if (z_keyboard > 0 && !animatorControler.IsInState("fireRifle") && !animatorControler.IsInState("reloadRifle") ){
                 isRun = Input.GetKey(KeyCodeRun);
             }
          
@@ -89,12 +95,14 @@ public class SC_PlayerControl : MonoBehaviour
                 animatorControler.AnimeMoveSpeed = 1;
                 moveKeyborad.SetMoveSpeed = status.RunSpeed;
                 audioSC.clip = audioClipRun;
+                //Debug.Log("Player is Running");
             }
             else
             {
                 animatorControler.AnimeMoveSpeed = 0.5f;
                 moveKeyborad.SetMoveSpeed = status.WalkSpeed;
                 audioSC.clip = audioClipWalk;
+                //Debug.Log("Player is Walking");
             }
 
             if (!audioSC.isPlaying)
@@ -107,6 +115,7 @@ public class SC_PlayerControl : MonoBehaviour
         {
             moveKeyborad.SetMoveSpeed = 0;
             animatorControler.AnimeMoveSpeed = 0;
+            //Debug.Log("Player is Idle");
 
             if (audioSC.isPlaying)
             {
@@ -143,7 +152,22 @@ public class SC_PlayerControl : MonoBehaviour
             }
             else
             {
-                Debug.LogError("WeaponRifle이 null입니다.");
+               // Debug.LogError("WeaponRifle이 null입니다.");
+            }
+        }
+    }
+
+    private void UpdateReload()
+    {
+        if (Input.GetKeyDown(KeyCodeReload)) // R 키가 눌렸을 때
+        {
+            if (weaponRifle != null)
+            {
+                weaponRifle.Reload(); // SC_WeaponRifle의 Reload 메서드 호출
+            }
+            else
+            {
+               // Debug.LogError("WeaponRifle이 null입니다.");
             }
         }
     }
