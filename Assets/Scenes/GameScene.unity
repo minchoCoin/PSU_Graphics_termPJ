@@ -2810,6 +2810,7 @@ GameObject:
   - component: {fileID: 674684738}
   - component: {fileID: 674684737}
   - component: {fileID: 674684735}
+  - component: {fileID: 674684745}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2999,6 +3000,7 @@ MonoBehaviour:
   KeyCodeRun: 304
   KeyCodeJump: 32
   KeyCodeToggleAuto: 98
+  KeyCodeReload: 114
   weaponSetting:
     attackSpeed: 0
     attackDist: 0
@@ -3051,6 +3053,18 @@ Transform:
   - {fileID: 1706577436}
   m_Father: {fileID: 365493727}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &674684745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674684734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e420854c868994f9269c7baf8535a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &688414798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3896,6 +3910,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8587048437761923911, guid: ac006f1c9321c054e96f86dee52dc183, type: 3}
   m_PrefabInstance: {fileID: 1062470355}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1074994426 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4078668045055358819, guid: 43533b35f5c1ba7458e9b874af18483c, type: 3}
+  m_PrefabInstance: {fileID: 1153600383}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1074994430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074994426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e420854c868994f9269c7baf8535a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1099398446
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4240,7 +4271,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4078668045055358819, guid: 43533b35f5c1ba7458e9b874af18483c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1074994430}
   m_SourcePrefab: {fileID: 100100000, guid: 43533b35f5c1ba7458e9b874af18483c, type: 3}
 --- !u!1001 &1157418948
 PrefabInstance:
@@ -7146,8 +7180,8 @@ MonoBehaviour:
     attackSpeed: 10
     attackDist: 10
     isAuto: 1
-    maxAmmo: 15
-    currentAmmo: 15
+    maxAmmo: 30
+    currentAmmo: 30
   AC_TakeOutWeapon: {fileID: 8300000, guid: 2ae41e984ff1f3e4a840a1a46b6a8816, type: 3}
   muzzleFlashEffect: {fileID: 991726502}
   Bullet: {fileID: 7638351563807042022, guid: eddd5dbbd5cba0343953e804ef2e05c8, type: 3}
