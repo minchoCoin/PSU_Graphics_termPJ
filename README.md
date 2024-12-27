@@ -26,7 +26,7 @@
 - 최소1개 이상의 Non-Primitive GameObject활용
   - SC_PlayerControl.cs에서 Animator와 관련된 캐릭터 Assets : AssetStore_Assets dir에서 관리, 발포, 장전, 달리기, 걷기, 대기 등 애니메이션을 활용
 
-### 김태훈(201924451)
+### 김태훈
 - GameObject 간 충돌 처리
   - 좀비 오른쪽 손 부분에 작은 sphere를 부착하고, 해당 sphere에 sphere collider와 Rigidbody를 추가하였다. 이 collider와 player의 collider가 부딪히면 OnTriggerEnter 이벤트가 발생하고, 해당 이벤트가 발생하면 Player의 HP가 감소한다(데미지 양은 좀비 손에 있는 sphere에 적용된 스크립트 SC_ZombieHand의 Damage 속성값을 따른다). 또한 좀비 전체 mesh에도 collider를 추가하여, 총알과 부딪히면 좀비 체력이 감소하게 하였다.
   - 스크립트: SC_ZombieHand, SC_Bullet
