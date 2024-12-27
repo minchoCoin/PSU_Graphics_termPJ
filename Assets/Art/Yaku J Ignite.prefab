@@ -320,6 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 100
   isDead: 0
+  zombieHand: {fileID: 230995330782521027}
 --- !u!114 &21684380372744328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,4 +334,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombieHand: {fileID: 7271036055326533238}
-  zombieDamage: 20
+  zombieDamage: 10

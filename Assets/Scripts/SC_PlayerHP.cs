@@ -10,6 +10,7 @@ public class SC_PlayerHP : MonoBehaviour
     public int maxHP = 100;
     public int HP = 100;
     public GameObject bloodyscreen;
+    public GameObject overpanel;
     public RuntimeAnimatorController deadcontroller; // ∫Ø∞Ê«“ Animator Controller
 
     //public int damage = 20;
@@ -33,7 +34,10 @@ public class SC_PlayerHP : MonoBehaviour
     {
         GetComponent<SC_PlayerControl>().enabled = false;
         GetComponent<SC_PlayerMove>().enabled = false;
-        GetComponent<SC_Quit>().enabled = true;
+        //GetComponent<SC_Quit>().enabled = true;
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
+        overpanel.SetActive(true);
         gameObject.AddComponent<Animator>();
         GetComponentInChildren<Animator>().runtimeAnimatorController = deadcontroller;
     }

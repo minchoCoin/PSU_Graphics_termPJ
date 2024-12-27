@@ -8,8 +8,8 @@ public class ZombieRunningState : StateMachineBehaviour
     UnityEngine.AI.NavMeshAgent agent;
     Transform player;
 
-    public float chaseSpeed = 2.5f;
-    public float stopChasingDistance = 16;
+    public float chaseSpeed = 2f;
+    public float stopChasingDistance = 8;
     public float attackingDistance = 2.5f;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

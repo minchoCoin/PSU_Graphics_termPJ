@@ -9,6 +9,7 @@ public class SC_Zombie : MonoBehaviour
     private Animator animator;
     private NavMeshAgent agent;
     public bool isDead = false;
+    public GameObject zombieHand;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +23,12 @@ public class SC_Zombie : MonoBehaviour
         if (HP <= 0)
         {
             animator.SetTrigger("DIE1");
+            GetComponent<Collider>().enabled = false;
+            zombieHand.GetComponent<Collider>().enabled = false;
             isDead = true;
             //DIE2 has bug
-            
+            Destroy(gameObject, 4f);
+
         }
         else
         {

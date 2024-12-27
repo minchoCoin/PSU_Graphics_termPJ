@@ -10,7 +10,7 @@ public class ZombieWalkingState : StateMachineBehaviour
     Transform player;
     NavMeshAgent agent;
     public float detectionArea = 8f;
-    public float patrolSpeed = 2f;
+    public float patrolSpeed = 1.5f;
     List<Transform> waypointList = new List<Transform>();
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

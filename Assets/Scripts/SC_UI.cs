@@ -43,5 +43,11 @@ public class SC_UI : MonoBehaviour
         gamePanel.SetActive(true);
         EventSystem.SetActive(false);
         player.gameObject.SetActive(true);
+        player.GetComponent<SC_Quit>().enabled = false;
+    }
+
+    public void GameQuit()
+    {
+        Application.Quit(); //∞‘¿”/æ€ ¡æ∑·.
     }
 }

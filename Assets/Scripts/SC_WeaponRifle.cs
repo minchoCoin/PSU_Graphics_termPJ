@@ -30,7 +30,7 @@ public class SC_WeaponRifle : MonoBehaviour
     public AudioClip GunShot; // ÃÑ¾Ë ¹ß»ç ¼Ò¸®
     public float BulletSpeed; // ÃÑ¾Ë ¼Óµµ
     private Transform bulletSpawnPoint; // ÃÑ¾Ë ¹ß»ç À§Ä¡
-    private int BulletDamage = 20;
+    private int BulletDamage = 15;
     public int MaxAmmo => weaponSetting.maxAmmo;
     public int CurrentAmmo => weaponSetting.currentAmmo;
     public bool IsAuto => weaponSetting.isAuto;
