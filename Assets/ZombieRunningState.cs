@@ -10,23 +10,27 @@ public class ZombieRunningState : StateMachineBehaviour
 
     public float chaseSpeed = 2f;
     public float stopChasingDistance = 8;
-    public float attackingDistance = 2.5f;
+    public float attackingDistance = 1.7f;
+    
+    //public float attackingAngle = 15f;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = animator.GetComponent<NavMeshAgent>();
         agent.speed = chaseSpeed;
+       
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         agent.SetDestination(player.position);
-        animator.transform.LookAt(player);
+        animator.transform.LookAt(player.position);
 
         float distanceFromPlayer = Vector3.Distance(player.position, animator.transform.position);
 
+        
         if (distanceFromPlayer > stopChasingDistance)
         {
             animator.SetBool("isChasing", false);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,7 +35,7 @@ public class SC_ZombieSpawnController : MonoBehaviour
     {
         for(int i = 0; i < currentZombiePerWave; i++)
         {
-            Vector3 spawnOffset = new Vector3(Random.Range(-0.1f, 0.1f), 0f, Random.Range(-0.1f, 0.1f));
+            Vector3 spawnOffset = new Vector3(UnityEngine.Random.Range(-0.1f, 0.1f), 0f, UnityEngine.Random.Range(-0.1f, 0.1f));
             Vector3 spawnPosition = transform.position + spawnOffset;
 
             var zombie = Instantiate(zombiePrefab, spawnPosition, Quaternion.identity);
@@ -82,7 +83,7 @@ public class SC_ZombieSpawnController : MonoBehaviour
         yield return new WaitForSeconds(waveCoolDownSec);
         inCoolDown = false;
 
-        currentZombiePerWave *= 2;
+        currentZombiePerWave = (int)Math.Ceiling((double)currentZombiePerWave * 1.5);
         StartNextWave();
     }
 }

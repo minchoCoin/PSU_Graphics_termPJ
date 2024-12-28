@@ -23,11 +23,11 @@ public class SC_Zombie : MonoBehaviour
         if (HP <= 0)
         {
             animator.SetTrigger("DIE1");
-            GetComponent<Collider>().enabled = false;
+            //GetComponent<Collider>().enabled = false;
             zombieHand.GetComponent<Collider>().enabled = false;
             isDead = true;
             //DIE2 has bug
-            Destroy(gameObject, 4f);
+            Destroy(gameObject, 10f);
 
         }
         else
