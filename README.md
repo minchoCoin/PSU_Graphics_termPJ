@@ -1,3 +1,12 @@
+# Introduction
+Zombie FPS Game for term project of 'Computer Graphics' lecture.
+
+Authors: [전승윤](https://github.com/Foordle), [김태훈](https://github.com/minchoCoin), [윤선재](https://github.com/Yoon-Sunjae), [문성필](https://github.com/Monolong)
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/JUK2EDIlkAA/0.jpg)](https://youtu.be/JUK2EDIlkAA)
+
+**you can play and download the game on [itch.io](https://minchoco.itch.io/zombie-fps?secret=8DsZktYmzMDB3DA4Y0Ss48uCS4s)**
+
 # 구현기능 설명
 ## 필수기능 구현
 ### 전승윤
