@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SC_WeaponRifle : MonoBehaviour
 {
+    public SC_PlayerControl playerControl=null;
     [Header("weapon setting")]
     [SerializeField]
     private WeaponSetting weaponSetting;
@@ -44,6 +45,7 @@ public class SC_WeaponRifle : MonoBehaviour
 
     private void Awake()
     {
+        playerControl = GetComponentInParent<SC_PlayerControl>();
         audioSC = GetComponent<AudioSource>();
         animatorControler = GetComponentInParent<SC_PlayerAnimatorControler>();
 
@@ -56,6 +58,7 @@ public class SC_WeaponRifle : MonoBehaviour
         PlaySound(AC_TakeOutWeapon);
         muzzleFlashEffect.SetActive(false);
     }
+   
     void Update()
     {
         
@@ -154,8 +157,8 @@ public class SC_WeaponRifle : MonoBehaviour
                     SC_Bullet bulletScript = rb.gameObject.AddComponent<SC_Bullet>();
 
                     
-                    bulletScript.bulletDamage = BulletDamage; 
-
+                    bulletScript.bulletDamage = BulletDamage;
+                    bulletScript.PlayerControl = playerControl;
                     
                     Vector3 shootDirection = bulletSpawnPoint.forward; 
                     rb.velocity = shootDirection * BulletSpeed;

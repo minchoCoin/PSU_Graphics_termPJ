@@ -17,13 +17,15 @@ public class SC_Zombie : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
-    public void TakeDamage(int damageAmount)
+    public bool TakeDamage(int damageAmount)
     {
         HP -= damageAmount;
         if (HP <= 0)
         {
+            agent.enabled = false;
             animator.SetTrigger("DIE1");
-            //GetComponent<Collider>().enabled = false;
+            //animator.enabled = false;
+            GetComponent<Collider>().enabled = false;
             zombieHand.GetComponent<Collider>().enabled = false;
             isDead = true;
             //DIE2 has bug
@@ -34,7 +36,7 @@ public class SC_Zombie : MonoBehaviour
         {
             animator.SetTrigger("DAMAGE");
         }
-
+        return isDead;
     }
     
     // Update is called once per frame

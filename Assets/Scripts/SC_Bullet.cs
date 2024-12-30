@@ -6,6 +6,8 @@ public class SC_Bullet : MonoBehaviour
 {
     public GameObject HitSpark;
 
+    public SC_PlayerControl PlayerControl;
+
     public int bulletDamage;
 
     void Start()
@@ -26,7 +28,11 @@ public class SC_Bullet : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Zombie"))
         {
-            collision.gameObject.GetComponent<SC_Zombie>().TakeDamage(bulletDamage);
+            bool isDead = collision.gameObject.GetComponent<SC_Zombie>().TakeDamage(bulletDamage);
+            if (isDead)
+            {
+                PlayerControl.Score += 1;
+            }
         }
 
         //Instantiate(HitSpark, transform.position, transform.rotation);

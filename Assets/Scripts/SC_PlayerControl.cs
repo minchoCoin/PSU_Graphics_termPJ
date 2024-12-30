@@ -36,7 +36,7 @@ public class SC_PlayerControl : MonoBehaviour
     public int CurrentAmmo => weaponRifle.CurrentAmmo;
     public bool IsAuto => weaponRifle.IsAuto;
 
-
+    public int Score = 0;
 
     void Awake()
     {
